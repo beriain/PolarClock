@@ -74,6 +74,7 @@
 				padding: 10px;
 				color: white;
 				font-size: 125%;
+				z-index: 1;
 			}
 			div.setting
 			{
@@ -102,6 +103,31 @@
 			span.time
 			{
 				margin-left:-7px;
+			}
+			button#displayAbout
+			{
+				border: none;
+				background: none;
+				color: white;
+				font-size: 100%;
+				float:right;
+				/*margin-top: -5px;*/
+			}
+			div#about
+			{
+				background: white;
+				z-index: 10;
+				float: right;
+				border-radius: 2px;
+				padding: 5 60 5 10;
+				font-size: 80%;
+				margin-top: 2px;
+				box-shadow: 5px 5px 5px grey;
+			}
+			a
+			{
+				text-decoration: none;
+				color: black;
 			}
 			@media screen and (-webkit-min-device-pixel-ratio:0) {
 				/* webkit specific CSS */
@@ -201,6 +227,8 @@
 			</svg>
 			<!--&#9776;-->
 			<span id="title">Polar clock</span>
+			<button id="displayAbout" onclick="displayAboutMenu(event)">&#8942;</button>
+			<a href="./about.html"><div id="about" style="display: none"><span id="aboutString">About</span></div></a>
 		</div>
 		<canvas id="clock" width="350" height="350"></canvas>
 		<div id="date">
@@ -371,6 +399,7 @@
 					document.getElementById("datePositionString").innerHTML = "Dataren kokapena";
 					document.getElementById("inTheClockString").innerHTML = "Erlojuan";
 					document.getElementById("underTheClockString").innerHTML = "Erlojuaren azpian";
+					document.getElementById("aboutString").innerHTML = "Honi buruz";
 				}
 				if(navigator.language.substring(0, 2) == "es")
 				{
@@ -393,6 +422,7 @@
 					document.getElementById("datePositionString").innerHTML = "Ubicación de la fecha";
 					document.getElementById("inTheClockString").innerHTML = "En el reloj";
 					document.getElementById("underTheClockString").innerHTML = "Debajo del reloj";
+					document.getElementById("aboutString").innerHTML = "Acerca de";
 				}
 				if(navigator.language.substring(0, 2) == "fr")
 				{
@@ -516,6 +546,14 @@
 			{
 				if(t < 10) t = "0" + t;
 				return t;
+			}
+			
+			function displayAboutMenu(event)
+			{
+				if(document.getElementById("about").style.display == "none")
+					document.getElementById("about").style.display = "block";
+				else
+					document.getElementById("about").style.display = "none";
 			}
 
 			function start()
