@@ -45,7 +45,7 @@
 			}
 		</style>
 	</head>
-	<body onload="translate()">
+	<body onload="loadLang()">
 		<div id="titleBar">
 			<a href="./polar-clock.html" class="button">
 				<svg id="back" width="18" height="19">
@@ -72,23 +72,43 @@
 		<p>You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <a href="http://www.gnu.org/licenses">http://www.gnu.org/licenses</a>.</p>
 		<script>
+			var lang;
+			
 			function translate()
 			{
-				if(navigator.language.substring(0, 2) == "eu")
+				if(lang == "eu")
 				{
 					document.title = "Honi buruz";
 					document.getElementById("title").innerHTML = "Honi buruz";
 				}
-				if(navigator.language.substring(0, 2) == "es")
+				if(lang == "es")
 				{
 					document.title = "Acerca de";
 					document.getElementById("title").innerHTML = "Acerca de";
 				}
-				if(navigator.language.substring(0, 2) == "fr")
+				if(lang == "fr")
 				{
 					document.title = "Horloge polaire";
 					document.getElementById("title").innerHTML = "Horloge polaire";
 				}
+				if(lang == "en")
+				{
+					document.title = "Polar Clock";
+					document.getElementById("title").innerHTML = "Polar Clock";
+				}
+			}
+			
+			function loadLang()
+			{
+				if(localStorage.getItem("lang") != null)
+				{
+					lang = localStorage.getItem("lang");
+				}
+				else
+				{
+					lang = navigator.language.substring(0, 2);
+				}
+				translate();
 			}
 			
 		</script>

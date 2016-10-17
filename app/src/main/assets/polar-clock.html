@@ -95,6 +95,7 @@
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
 			var monday;
 			var dateInClock, dateUnderClock;
+			var lang;
 			
 			var canvas = document.getElementById("clock");
 			var context = canvas.getContext("2d");
@@ -228,7 +229,7 @@
 
 			function translate()
 			{
-				if(navigator.language.substring(0, 2) == "eu")
+				if(lang == "eu")
 				{
 					monthNames = ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza",
 						"Ekaina", "Uztaila", "Aubuztua", "Iraila", "Urria", "Azaroa", "Abendua"];
@@ -238,7 +239,7 @@
 					document.getElementById("settings").innerHTML = "Ezarpenak";
 					document.getElementById("about").innerHTML = "Honi buruz";
 				}
-				if(navigator.language.substring(0, 2) == "es")
+				if(lang == "es")
 				{
 					monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo",
 						"Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -248,13 +249,25 @@
 					document.getElementById("settings").innerHTML = "Configuración";
 					document.getElementById("about").innerHTML = "Acerca de";
 				}
-				if(navigator.language.substring(0, 2) == "fr")
+				if(lang == "fr")
 				{
 					monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai",
 						"Juin", "Julliet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 					dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 					document.title = "Horloge polaire";
 					document.getElementById("title").innerHTML = "Horloge polaire";
+					document.getElementById("settings").innerHTML = "Paramètres";
+					document.getElementById("about").innerHTML = "À propos de";
+				}
+				if(lang == "en")
+				{
+					monthNames = ["January", "February", "March", "April", "May",
+						"June", "July", "August", "September", "October", "November", "December"];
+					dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+					document.title = "Polar Clock";
+					document.getElementById("title").innerHTML = "Polar Clock";
+					document.getElementById("settings").innerHTML = "Settings";
+					document.getElementById("about").innerHTML = "About";
 				}
 			}
 			
@@ -371,9 +384,22 @@
 					document.getElementById("settings").style.display = "none";
 				}
 			};
+			
+			function loadLang()
+			{
+				if(localStorage.getItem("lang") != null)
+				{
+					lang = localStorage.getItem("lang");
+				}
+				else
+				{
+					lang = navigator.language.substring(0, 2);
+				}
+			}
 
 			function start()
 			{
+				loadLang();
 				translate();
 				loadColors();
 				loadFirstDay();

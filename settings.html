@@ -70,6 +70,17 @@
 		</div>
 		<div id="settings">
 			<div class="setting">
+				<i><span id="langString">Language</span></i>
+			</div>
+			<div class="setting">
+				<select id="langs" onchange="langChanged()">
+					<option value="eu">Basque</option>
+					<option value="fr">French</option>
+					<option value="en">English</option>
+					<option value="es">Spanish</option>
+				</select> 
+			</div>
+			<div class="setting">
 				<i><span id="colorsString">Colors</span></i>
 			</div>
 			<div class="setting">
@@ -101,7 +112,6 @@
 			</div>
 			<div class="setting">
 				<span id="sundayString">Sunday</span> <input type="radio" id="sundayCheck" name="fd" onchange="firstDayChanged(false)"/><br>
-				<!--<span id="mondayString">Monday</span> <input type="radio" id="mondayCheck" name="fd" onchange="firstDayChanged(true)" checked/>-->
 				<span id="mondayString">Monday</span> <input type="radio" id="mondayCheck" name="fd" onchange="firstDayChanged(true)"/>
 			</div>
 			<div class="separator"></div>
@@ -123,6 +133,7 @@
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
 			var monday;
 			var dateInClock, dateUnderClock;
+			var lang;
 
 			function colorChanged(pos, color)
 			{
@@ -221,7 +232,7 @@
 		
 			function translate()
 			{
-				if(navigator.language.substring(0, 2) == "eu")
+				if(lang == "eu")
 				{
 					document.title = "Ezarpenak";
 					document.getElementById("title").innerHTML = "Ezarpenak";
@@ -239,8 +250,13 @@
 					document.getElementById("inTheClockString").innerHTML = "Erlojuan";
 					document.getElementById("underTheClockString").innerHTML = "Erlojuaren azpian";
 					document.getElementById("resetColors").innerHTML = "Koloreak berrezarri";
+					document.getElementById("langString").innerHTML = "Hizkuntza";
+					document.getElementById("langs")[0].innerHTML = "Euskera";
+					document.getElementById("langs")[1].innerHTML = "Frantsesa";
+					document.getElementById("langs")[2].innerHTML = "Ingelesa";
+					document.getElementById("langs")[3].innerHTML = "Gaztelera";
 				}
-				if(navigator.language.substring(0, 2) == "es")
+				if(lang == "es")
 				{
 					document.title = "Configuración";
 					document.getElementById("title").innerHTML = "Configuración";
@@ -258,16 +274,90 @@
 					document.getElementById("inTheClockString").innerHTML = "En el reloj";
 					document.getElementById("underTheClockString").innerHTML = "Debajo del reloj";
 					document.getElementById("resetColors").innerHTML = "Restablecer colores";
+					document.getElementById("langString").innerHTML = "Idioma";
+					document.getElementById("langs")[0].innerHTML = "Euskera";
+					document.getElementById("langs")[1].innerHTML = "Frances";
+					document.getElementById("langs")[2].innerHTML = "Ingles";
+					document.getElementById("langs")[3].innerHTML = "Castellano";
 				}
-				if(navigator.language.substring(0, 2) == "fr")
+				if(lang == "fr")
 				{
-					document.title = "??";
-					document.getElementById("title").innerHTML = "??";
+					document.title = "Paramètres";
+					document.getElementById("title").innerHTML = "Paramètres";
+					document.getElementById("colorsString").innerHTML = "Couleurs";
+					document.getElementById("secondsString").innerHTML = "Secondes";
+					document.getElementById("minutesString").innerHTML = "Minutes";
+					document.getElementById("hoursString").innerHTML = "Heures";
+					document.getElementById("weekDaysString").innerHTML = "Jours de la semaine";
+					document.getElementById("monthDaysString").innerHTML = "Jours du mois";
+					document.getElementById("monthsString").innerHTML = "Mois";
+					document.getElementById("firstDayString").innerHTML = "Premier jour de la semaine";
+					document.getElementById("sundayString").innerHTML = "Dimanche";
+					document.getElementById("mondayString").innerHTML = "Lundi";
+					document.getElementById("datePositionString").innerHTML = "Position de la date";
+					document.getElementById("inTheClockString").innerHTML = "Dans l'horloge";
+					document.getElementById("underTheClockString").innerHTML = "Sous l'horloge";
+					document.getElementById("resetColors").innerHTML = "Réinitialiser les couleurs";
+					document.getElementById("langString").innerHTML = "Langue";
+					document.getElementById("langs")[0].innerHTML = "Basque";
+					document.getElementById("langs")[1].innerHTML = "Français";
+					document.getElementById("langs")[2].innerHTML = "Anglais";
+					document.getElementById("langs")[3].innerHTML = "Spaignol";
 				}
+				if(lang == "en")
+				{
+					document.title = "Settings";
+					document.getElementById("title").innerHTML = "Settings";
+					document.getElementById("colorsString").innerHTML = "Colors";
+					document.getElementById("secondsString").innerHTML = "Seconds";
+					document.getElementById("minutesString").innerHTML = "Minutes";
+					document.getElementById("hoursString").innerHTML = "Hours";
+					document.getElementById("weekDaysString").innerHTML = "Week days";
+					document.getElementById("monthDaysString").innerHTML = "Month days";
+					document.getElementById("monthsString").innerHTML = "Months";
+					document.getElementById("firstDayString").innerHTML = "First day of week";
+					document.getElementById("sundayString").innerHTML = "Sunday";
+					document.getElementById("mondayString").innerHTML = "Monday";
+					document.getElementById("datePositionString").innerHTML = "Date position";
+					document.getElementById("inTheClockString").innerHTML = "In the clock";
+					document.getElementById("underTheClockString").innerHTML = "Under the clock";
+					document.getElementById("resetColors").innerHTML = "Reset colors";
+					document.getElementById("langString").innerHTML = "Language";
+					document.getElementById("langs")[0].innerHTML = "Basque";
+					document.getElementById("langs")[1].innerHTML = "French";
+					document.getElementById("langs")[2].innerHTML = "English";
+					document.getElementById("langs")[3].innerHTML = "Spanish";
+				}
+			}
+			
+			function langChanged()
+			{
+				lang = document.getElementById("langs").value;
+				saveLang();
+				translate();
+			}
+			
+			function saveLang()
+			{
+				localStorage["lang"] = lang;
+			}
+			
+			function loadLang()
+			{
+				if(localStorage.getItem("lang") != null)
+				{
+					lang = localStorage.getItem("lang");
+				}
+				else
+				{
+					lang = navigator.language.substring(0, 2);
+				}
+				document.getElementById("langs").value = lang;
 			}
 			
 			function start()
 			{
+				loadLang();
 				translate();
 				loadColors();
 				loadFirstDay();
