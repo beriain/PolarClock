@@ -3,69 +3,12 @@
 		<title>Polar clock</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
-		<script>
-			/***
-			Adapted from:https://stackoverflow.com/a/23230280
-			***/
-			document.addEventListener("touchstart", handleTouchStart, false);
-			document.addEventListener("touchmove", handleTouchMove, false);
-			var xDown = null;
-			function handleTouchStart(evt)
-			{
-				xDown = evt.touches[0].clientX;
-			}
-			function handleTouchMove(evt)
-			{
-				if(!xDown) return;
-				var xUp = evt.touches[0].clientX;
-				var xDiff = xDown - xUp;
-				if(xDiff > 0)
-				{
-					var s = document.getElementById("settings");
-					if(s.style.display != "none")
-					{
-						s.className = "classHideSettingsAnimation";
-						s.style.marginLeft = "-450px";
-					}
-				}
-				else
-				{
-					
-					if(xDown <= screen.width * 0.2)
-					{
-						var s = document.getElementById("settings");
-						if(s.style.marginLeft == "-450px" || s.style.display == "none")
-						{
-							s.style.display = "block";
-							s.className = "classShowSettingsAnimation";
-							s.style.marginLeft = "0";
-						}
-					}
-				}
-				xDown = null;
-			}
-		</script>
 		<style>
 			body
 			{
 				margin: 0;
 				text-align:center;
 				font-family:sans-serif;
-			}
-			div#settings{
-				float: left;
-				display: inline;
-				height: 100%;
-				position: fixed;
-				text-align: left;
-				background: white;
-				border-right: 1px solid grey;
-			}
-			div#settingsHeader{
-				background:#2ecc71;
-				padding:10px;
-				color:white;
-				font-size:125%;
 			}
 			div#titleBar
 			{
@@ -75,15 +18,6 @@
 				color: white;
 				font-size: 125%;
 				z-index: 1;
-			}
-			div.setting
-			{
-				padding:5px;
-			}
-			div.separator
-			{
-				margin-top:5px;
-				border-top:1px solid grey;
 			}
 			input
 			{
@@ -104,131 +38,46 @@
 			{
 				margin-left:-7px;
 			}
-			button#displayAbout
+			button#displayMenu
 			{
 				border: none;
 				background: none;
 				color: white;
 				font-size: 100%;
 				float:right;
-				/*margin-top: -5px;*/
+				margin-top: -2px;
+				outline: none;
 			}
-			div#about
+			div#menu
 			{
 				background: white;
 				z-index: 10;
-				float: right;
+				position: absolute;
+				right: 20px;
 				border-radius: 2px;
-				padding: 5 60 5 10;
 				font-size: 80%;
-				margin-top: 2px;
+				margin-top: -20px;
 				box-shadow: 5px 5px 5px grey;
+			}
+			div.menuElement
+			{
+				padding: 5 60 5 10;
 			}
 			a
 			{
 				text-decoration: none;
 				color: black;
 			}
-			@media screen and (-webkit-min-device-pixel-ratio:0) {
-				/* webkit specific CSS */
-				input[type="color"]{ height:28px; }
-			}
-			.classShowSettingsAnimation{
-			  animation-name: showSettingsAnimation;
-			  animation-duration: 1s;
-			  -webkit-animation-name: showSettingsAnimation;
-			  -webkit-animation-duration: 1s;
-			}
-			@keyframes showSettingsAnimation{
-			  from {margin-left: -450px;}
-			  to{margin-left: 0;}
-			}
-			@-webkit-keyframes showSettingsAnimation{
-			  from {margin-left: -450px;}
-			  to{margin-left: 0;}
-			}
-			.classHideSettingsAnimation{
-			  animation-name: hideSettingsAnimation;
-			  animation-duration: 1s;
-			  -webkit-animation-name: hideSettingsAnimation;
-			  -webkit-animation-duration: 1s;
-			}
-			@keyframes hideSettingsAnimation{
-			  from {margin-left: 0;}
-			  to{margin-left: -450px;}
-			}
-			@-webkit-keyframes hideSettingsAnimation{
-			  from {margin-left: 0;}
-			  to{margin-left: -450px;}
-			}
 		</style>
 	</head>
 	<body onload="start()">
-		<div id="settings"  style="display:none;">
-			<div id="settingsHeader">
-				<svg id="back" width="18" height="19" onclick="hideSettings()">
-					<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"  fill="#ffffff"/>
-				</svg>
-				<span id="settingsString">Settings</span>
-			</div>
-			<div class="setting">
-				<i><span id="colorsString">Colors</span></i>
-			</div>
-			<div class="setting">
-				<table>
-					<tr>
-						<td id="secondsString">Seconds</td><td><input type="color" id="secondsColor" onchange="colorChanged(0, this.value)"/></td>
-					</tr>
-					<tr>
-						<td id="minutesString">Minutes</td><td><input type="color" id="minutesColor" onchange="colorChanged(1, this.value)"/></td>
-					</tr>
-					<tr>
-						<td id="hoursString">Hours</td><td><input type="color" id="hoursColor" onchange="colorChanged(2, this.value)"/></td>
-					</tr>
-					<tr>
-						<td id="weekDaysString">Week days</td><td><input type="color" id="weekDaysColor" onchange="colorChanged(3, this.value)"/></td>
-					</tr>
-					<tr>
-						<td id="monthDaysString">Month days</td><td><input type="color" id="monthDaysColor" onchange="colorChanged(4, this.value)"/></td>
-					</tr>
-					<tr>
-						<td id="monthsString">Months</td><td><input type="color" id="monthsColor" onchange="colorChanged(5, this.value)"/></td>
-					</tr>
-				</table>
-			</div>
-			<div class="separator"></div>
-			<div class="setting">
-				<i><span id="firstDayString">First day of week</span></i>
-			</div>
-			<div class="setting">
-				<span id="sundayString">Sunday</span> <input type="radio" name="fd" onchange="firstDayChanged(false)"/><br>
-				<span id="mondayString">Monday</span> <input type="radio" name="fd" onchange="firstDayChanged(true)" checked/>
-			</div>
-			<div class="separator"></div>
-			<div class="setting">
-				<i><span id="datePositionString">Date position</span></i>
-			</div>
-			<div class="setting">
-				<table>
-					<tr>
-						<td><span id="inTheClockString">In the clock</span></td><td><input type="checkbox" id="i" onchange="datePositionChanged()"/></td>
-					</tr>
-					<tr>
-						<td><span id="underTheClockString">Under the clock</span></td><td><input type="checkbox" id="u" onchange="datePositionChanged()"/></td>
-					</tr>
-				</table>
-			</div>
-		</div>
 		<div id="titleBar">
-			<svg id="navicon" width="18" height="13" onclick="showSettings()">
-				<rect x="0" y="0" width="18" height="2" fill="#ffffff"/>
-				<rect x="0" y="5" width="18" height="2" fill="#ffffff"/>
-				<rect x="0" y="10" width="18" height="2" fill="#ffffff"/>
-			</svg>
-			<!--&#9776;-->
 			<span id="title">Polar clock</span>
-			<button id="displayAbout" onclick="displayAboutMenu(event)">&#8942;</button>
-			<a href="./about.html"><div id="about" style="display: none"><span id="aboutString">About</span></div></a>
+			<button id="displayMenu" onclick="displayMenu(event)">&#8942;</button>
+			<div id="menu">
+				<a href="./settings.html"><div id="settings" class="menuElement" style="display: none">Settings</div></a>
+				<a href="./about.html"><div id="about" class="menuelement" style="display: none">About</div></a>
+			</div>
 		</div>
 		<canvas id="clock" width="350" height="350"></canvas>
 		<div id="date">
@@ -385,21 +234,8 @@
 					dayNames = ["Igandea", "Astelehena", "Asteartea", "Asteazkena", "Osteguna", "Ostirala", "Larunbata" ];
 					document.title = "Erloju polarra";
 					document.getElementById("title").innerHTML = "Erloju polarra";
-					document.getElementById("settingsString").innerHTML = "Ezarpenak";
-					document.getElementById("colorsString").innerHTML = "Koloreak";
-					document.getElementById("secondsString").innerHTML = "Segunduak";
-					document.getElementById("minutesString").innerHTML = "Minutuak";
-					document.getElementById("hoursString").innerHTML = "Orduak";
-					document.getElementById("weekDaysString").innerHTML = "Astearen egunak";
-					document.getElementById("monthDaysString").innerHTML = "Hilabetearen egunak";
-					document.getElementById("monthsString").innerHTML = "Hilabeteak";
-					document.getElementById("firstDayString").innerHTML = "Astearen lehen eguna";
-					document.getElementById("sundayString").innerHTML = "Igandea";
-					document.getElementById("mondayString").innerHTML = "Astelehena";
-					document.getElementById("datePositionString").innerHTML = "Dataren kokapena";
-					document.getElementById("inTheClockString").innerHTML = "Erlojuan";
-					document.getElementById("underTheClockString").innerHTML = "Erlojuaren azpian";
-					document.getElementById("aboutString").innerHTML = "Honi buruz";
+					document.getElementById("settings").innerHTML = "Ezarpenak";
+					document.getElementById("about").innerHTML = "Honi buruz";
 				}
 				if(navigator.language.substring(0, 2) == "es")
 				{
@@ -408,21 +244,8 @@
 					dayNames = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
 					document.title = "Reloj polar";
 					document.getElementById("title").innerHTML = "Reloj polar";
-					document.getElementById("settingsString").innerHTML = "Configuración";
-					document.getElementById("colorsString").innerHTML = "Colores";
-					document.getElementById("secondsString").innerHTML = "Segundos";
-					document.getElementById("minutesString").innerHTML = "Minutos";
-					document.getElementById("hoursString").innerHTML = "Horas";
-					document.getElementById("weekDaysString").innerHTML = "Días de la semana";
-					document.getElementById("monthDaysString").innerHTML = "Días del mes";
-					document.getElementById("monthsString").innerHTML = "Meses";
-					document.getElementById("firstDayString").innerHTML = "Primer día de la semana";
-					document.getElementById("sundayString").innerHTML = "Domingo";
-					document.getElementById("mondayString").innerHTML = "Lunes";
-					document.getElementById("datePositionString").innerHTML = "Ubicación de la fecha";
-					document.getElementById("inTheClockString").innerHTML = "En el reloj";
-					document.getElementById("underTheClockString").innerHTML = "Debajo del reloj";
-					document.getElementById("aboutString").innerHTML = "Acerca de";
+					document.getElementById("settings").innerHTML = "Configuración";
+					document.getElementById("about").innerHTML = "Acerca de";
 				}
 				if(navigator.language.substring(0, 2) == "fr")
 				{
@@ -440,21 +263,6 @@
 				saveColors();
 			}
 			
-			function showSettings()
-			{
-				var s = document.getElementById("settings");
-				s.style.display = "block";
-				s.className = "classShowSettingsAnimation";
-				s.style.marginLeft = "0";
-			}
-			
-			function hideSettings()
-			{
-				var s = document.getElementById("settings");
-				s.className = "classHideSettingsAnimation";
-				s.style.marginLeft = "-450px";
-			}
-			
 			function saveColors()
 			{
 				localStorage["colors"] = JSON.stringify(colors);
@@ -466,12 +274,6 @@
 				{
 					colors = JSON.parse(localStorage["colors"]);
 				}
-				document.getElementById("secondsColor").value = colors[0];
-				document.getElementById("minutesColor").value = colors[1];
-				document.getElementById("hoursColor").value = colors[2];
-				document.getElementById("weekDaysColor").value = colors[3];
-				document.getElementById("monthDaysColor").value = colors[4];
-				document.getElementById("monthsColor").value = colors[5];
 			}
 			
 			function firstDayChanged(m)
@@ -528,8 +330,6 @@
 					dateInClock = true;
 					dateUnderClock = false;
 				}
-				document.getElementById("i").checked = dateInClock;
-				document.getElementById("u").checked = dateUnderClock;
 			}
 			
 			function clearDateDiv()
@@ -548,13 +348,28 @@
 				return t;
 			}
 			
-			function displayAboutMenu(event)
+			function displayMenu()
 			{
 				if(document.getElementById("about").style.display == "none")
+				{
 					document.getElementById("about").style.display = "block";
+					document.getElementById("settings").style.display = "block";
+				}
 				else
+				{
 					document.getElementById("about").style.display = "none";
+					document.getElementById("settings").style.display = "none";
+				}
 			}
+			
+			document.onclick = function(event)
+			{
+				if(event.target.id != "about" && event.target.id != "settings" && event.target.id != "displayMenu")
+				{
+					document.getElementById("about").style.display = "none";
+					document.getElementById("settings").style.display = "none";
+				}
+			};
 
 			function start()
 			{

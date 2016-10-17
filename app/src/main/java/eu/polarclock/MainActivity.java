@@ -17,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setSupportZoom(false);
         webSettings.setDomStorageEnabled(true);
         //webSettings.setUseWideViewPort(true);
-        wv.loadUrl("file:///android_asset/ep153.html");
+        wv.loadUrl("file:///android_asset/polar-clock.html");
     }
 }

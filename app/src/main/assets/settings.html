@@ -1,0 +1,275 @@
+<html>
+	<head>
+		<title>Settings</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<style>
+			body
+			{
+				margin: 0;
+				text-align:center;
+				font-family:sans-serif;
+			}
+			div#titleBar
+			{
+				background:#2ecc71;
+				text-align: left;
+				padding: 10px;
+				color: white;
+				font-size: 125%;
+				position: fixed;
+				width: 100%;
+			}
+			a.button
+			{
+				text-decoration: none;
+			}
+			div#settings{
+				padding-top: 50px;
+				text-align: left;
+			}
+			div.setting
+			{
+				padding:5px;
+			}
+			div.separator
+			{
+				margin-top:5px;
+				border-top:1px solid grey;
+			}
+			input
+			{
+				float: right;
+			}
+			input[type="color"]
+			{
+				border:none;
+				width:40px;
+				height:20px;
+				background:white;
+			}
+			@media screen and (-webkit-min-device-pixel-ratio:0) {
+				/* webkit specific CSS */
+				input[type="color"]{ height:28px; }
+			}
+			td.option
+			{
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body onload="start()">
+		<div id="titleBar">
+			<a href="./polar-clock.html" class="button">
+				<svg id="back" width="18" height="19">
+					<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"  fill="#ffffff"/>
+				</svg>
+			</a>
+			<!--&#9776;-->
+			<span id="title">Settings</span>
+		</div>
+		<div id="settings">
+			<div class="setting">
+				<i><span id="colorsString">Colors</span></i>
+			</div>
+			<div class="setting">
+				<table>
+					<tr>
+						<td id="secondsString" class="option">Seconds</td><td><input type="color" id="secondsColor" onchange="colorChanged(0, this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="minutesString" class="option">Minutes</td><td><input type="color" id="minutesColor" onchange="colorChanged(1, this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="hoursString" class="option">Hours</td><td><input type="color" id="hoursColor" onchange="colorChanged(2, this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="weekDaysString" class="option">Week days</td><td><input type="color" id="weekDaysColor" onchange="colorChanged(3, this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="monthDaysString" class="option">Month days</td><td><input type="color" id="monthDaysColor" onchange="colorChanged(4, this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="monthsString" class="option">Months</td><td><input type="color" id="monthsColor" onchange="colorChanged(5, this.value)"/></td>
+					</tr>
+				</table>
+				<button id="resetColors" onclick="resetColors()">Reset colors</button>
+			</div>
+			<div class="separator"></div>
+			<div class="setting">
+				<i><span id="firstDayString">First day of week</span></i>
+			</div>
+			<div class="setting">
+				<span id="sundayString">Sunday</span> <input type="radio" name="fd" onchange="firstDayChanged(false)"/><br>
+				<span id="mondayString">Monday</span> <input type="radio" name="fd" onchange="firstDayChanged(true)" checked/>
+			</div>
+			<div class="separator"></div>
+			<div class="setting">
+				<i><span id="datePositionString">Date position</span></i>
+			</div>
+			<div class="setting">
+				<table>
+					<tr>
+						<td class="option"><span id="inTheClockString">In the clock</span></td><td><input type="checkbox" id="i" onchange="datePositionChanged()"/></td>
+					</tr>
+					<tr>
+						<td class="option"><span id="underTheClockString">Under the clock</span></td><td><input type="checkbox" id="u" onchange="datePositionChanged()"/></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script>
+			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
+			var monday = true;
+			var dateInClock, dateUnderClock;
+
+			function colorChanged(pos, color)
+			{
+				colors[pos] = color;
+				saveColors();
+			}
+
+			function saveColors()
+			{
+				localStorage["colors"] = JSON.stringify(colors);
+			}
+
+			function loadColors()
+			{
+				if(localStorage.getItem("colors") != null)
+				{
+					colors = JSON.parse(localStorage["colors"]);
+				}
+				document.getElementById("secondsColor").value = colors[0];
+				document.getElementById("minutesColor").value = colors[1];
+				document.getElementById("hoursColor").value = colors[2];
+				document.getElementById("weekDaysColor").value = colors[3];
+				document.getElementById("monthDaysColor").value = colors[4];
+				document.getElementById("monthsColor").value = colors[5];
+			}
+
+			function resetColors()
+			{
+				colors[0] = "#2ecc71";
+				colors[1] = "#3498db";
+				colors[2] = "#9b59b6";
+				colors[3] = "#95a5a6";
+				colors[4] = "#e67e22";
+				colors[5] = "#e74c3c";
+				saveColors();
+				loadColors();
+			}
+
+			function firstDayChanged(m)
+			{
+				monday = m;
+				saveFirstDay();
+			}
+
+			function saveFirstDay()
+			{
+				localStorage["firstDayMonday"] = monday;
+			}
+
+			function loadFirstDay()
+			{
+				if(localStorage.getItem("firstDay") != null)
+				{
+					monday = localStorage.getItem("firstDayMonday");
+				}
+				else
+				{
+					monday = true;
+				}
+			}
+
+			function datePositionChanged()
+			{
+				dateInClock = document.getElementById("i").checked;
+				dateUnderClock = document.getElementById("u").checked;
+				saveDatePosition();
+			}
+
+			function saveDatePosition()
+			{
+				localStorage["dateInClock"] = dateInClock;
+				localStorage["dateUnderClock"] = dateUnderClock;
+			}
+
+			function loadDatePosition()
+			{
+				if(localStorage.getItem("dateInClock") != null && localStorage.getItem("dateUnderClock") != null)
+				{
+					dateInClock = localStorage.getItem("dateInClock");
+					dateUnderClock = localStorage.getItem("dateUnderClock");
+					if(dateInClock == "true") dateInClock = true;
+					if(dateInClock == "false") dateInClock = false;
+					if(dateUnderClock == "true") dateUnderClock = true;
+					if(dateUnderClock == "false") dateUnderClock = false;
+				}
+				else
+				{
+					dateInClock = true;
+					dateUnderClock = false;
+				}
+				document.getElementById("i").checked = dateInClock;
+				document.getElementById("u").checked = dateUnderClock;
+			}
+		
+			function translate()
+			{
+				if(navigator.language.substring(0, 2) == "eu")
+				{
+					document.title = "Ezarpenak";
+					document.getElementById("title").innerHTML = "Ezarpenak";
+					document.getElementById("colorsString").innerHTML = "Koloreak";
+					document.getElementById("secondsString").innerHTML = "Segunduak";
+					document.getElementById("minutesString").innerHTML = "Minutuak";
+					document.getElementById("hoursString").innerHTML = "Orduak";
+					document.getElementById("weekDaysString").innerHTML = "Astearen egunak";
+					document.getElementById("monthDaysString").innerHTML = "Hilabetearen egunak";
+					document.getElementById("monthsString").innerHTML = "Hilabeteak";
+					document.getElementById("firstDayString").innerHTML = "Astearen lehen eguna";
+					document.getElementById("sundayString").innerHTML = "Igandea";
+					document.getElementById("mondayString").innerHTML = "Astelehena";
+					document.getElementById("datePositionString").innerHTML = "Dataren kokapena";
+					document.getElementById("inTheClockString").innerHTML = "Erlojuan";
+					document.getElementById("underTheClockString").innerHTML = "Erlojuaren azpian";
+					document.getElementById("resetColors").innerHTML = "Koloreak berrezarri";
+				}
+				if(navigator.language.substring(0, 2) == "es")
+				{
+					document.title = "Configuración";
+					document.getElementById("title").innerHTML = "Configuración";
+					document.getElementById("colorsString").innerHTML = "Colores";
+					document.getElementById("secondsString").innerHTML = "Segundos";
+					document.getElementById("minutesString").innerHTML = "Minutos";
+					document.getElementById("hoursString").innerHTML = "Horas";
+					document.getElementById("weekDaysString").innerHTML = "Días de la semana";
+					document.getElementById("monthDaysString").innerHTML = "Días del mes";
+					document.getElementById("monthsString").innerHTML = "Meses";
+					document.getElementById("firstDayString").innerHTML = "Primer día de la semana";
+					document.getElementById("sundayString").innerHTML = "Domingo";
+					document.getElementById("mondayString").innerHTML = "Lunes";
+					document.getElementById("datePositionString").innerHTML = "Ubicación de la fecha";
+					document.getElementById("inTheClockString").innerHTML = "En el reloj";
+					document.getElementById("underTheClockString").innerHTML = "Debajo del reloj";
+					document.getElementById("resetColors").innerHTML = "Restablecer colores";
+				}
+				if(navigator.language.substring(0, 2) == "fr")
+				{
+					document.title = "??";
+					document.getElementById("title").innerHTML = "??";
+				}
+			}
+			
+			function start()
+			{
+				translate();
+				loadColors();
+				loadFirstDay();
+				loadDatePosition();
+			}
+		</script>
+	</body>
+</html>
