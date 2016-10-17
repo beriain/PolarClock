@@ -93,7 +93,7 @@
 						"June", "July", "August", "September", "October", "November", "December"];
 			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
-			var monday = true;
+			var monday;
 			var dateInClock, dateUnderClock;
 			
 			var canvas = document.getElementById("clock");
@@ -146,7 +146,8 @@
 							break;
 						case 3:
 							w = (now.getDay() * 2 / 7) + 1.5;
-							if(monday && now.getDay() == 0) w = 3.5;
+							//if(monday && now.getDay() == 0) w = 3.5;
+							if(monday == "false") w = ((now.getDay() + 1) * 2 / 7) + 1.5;
 							c = colors[3];
 							break;
 						case 4:
@@ -290,7 +291,7 @@
 			
 			function loadFirstDay()
 			{
-				if(localStorage.getItem("firstDay") != null)
+				if(localStorage.getItem("firstDayMonday") != null)
 				{
 					monday = localStorage.getItem("firstDayMonday");
 				}

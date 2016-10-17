@@ -100,8 +100,9 @@
 				<i><span id="firstDayString">First day of week</span></i>
 			</div>
 			<div class="setting">
-				<span id="sundayString">Sunday</span> <input type="radio" name="fd" onchange="firstDayChanged(false)"/><br>
-				<span id="mondayString">Monday</span> <input type="radio" name="fd" onchange="firstDayChanged(true)" checked/>
+				<span id="sundayString">Sunday</span> <input type="radio" id="sundayCheck" name="fd" onchange="firstDayChanged(false)"/><br>
+				<!--<span id="mondayString">Monday</span> <input type="radio" id="mondayCheck" name="fd" onchange="firstDayChanged(true)" checked/>-->
+				<span id="mondayString">Monday</span> <input type="radio" id="mondayCheck" name="fd" onchange="firstDayChanged(true)"/>
 			</div>
 			<div class="separator"></div>
 			<div class="setting">
@@ -120,7 +121,7 @@
 		</div>
 		<script>
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
-			var monday = true;
+			var monday;
 			var dateInClock, dateUnderClock;
 
 			function colorChanged(pos, color)
@@ -173,14 +174,16 @@
 
 			function loadFirstDay()
 			{
-				if(localStorage.getItem("firstDay") != null)
+				if(localStorage.getItem("firstDayMonday") != null)
 				{
 					monday = localStorage.getItem("firstDayMonday");
 				}
 				else
 				{
-					monday = true;
+					monday = "true";
 				}
+				if(monday == "true") document.getElementById("mondayCheck").checked = true;
+				if(monday == "false") document.getElementById("sundayCheck").checked = true;
 			}
 
 			function datePositionChanged()
