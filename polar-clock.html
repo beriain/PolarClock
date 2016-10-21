@@ -409,6 +409,15 @@
 				}
 			}
 
+			function loadFontSize()
+			{
+				if(localStorage.getItem("fs") != null)
+				{
+					fs = localStorage.getItem("fs");
+				}
+				else fs = 20;
+			}
+
 			function start()
 			{
 				loadLang();
@@ -416,6 +425,7 @@
 				loadColors();
 				loadFirstDay();
 				loadDatePosition();
+				loadFontSize();
 				setTime();
 			}
 		</script>

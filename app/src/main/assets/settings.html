@@ -129,12 +129,20 @@
 					</tr>
 				</table>
 			</div>
+			<div class="separator"></div>
+			<div class="setting">
+				<i><span id="fontString">Font</span></i>
+			</div>
+			<div class="setting">
+				<span id="sizeString">Size</span> (px)<input type="number" value="20" min=18 max=30 id="fontSize" onchange="fontSizeChanged()"/>
+			</div>
 		</div>
 		<script>
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
 			var monday;
 			var dateInClock, dateUnderClock;
 			var lang;
+			var fs;
 
 			function colorChanged(pos, color)
 			{
@@ -256,6 +264,8 @@
 					document.getElementById("langs")[1].innerHTML = "Frantsesa";
 					document.getElementById("langs")[2].innerHTML = "Ingelesa";
 					document.getElementById("langs")[3].innerHTML = "Gaztelera";
+					document.getElementById("fontString").innerHTML = "Letra";
+					document.getElementById("sizeString").innerHTML = "Neurria";
 				}
 				if(lang == "es")
 				{
@@ -280,6 +290,8 @@
 					document.getElementById("langs")[1].innerHTML = "Frances";
 					document.getElementById("langs")[2].innerHTML = "Ingles";
 					document.getElementById("langs")[3].innerHTML = "Castellano";
+					document.getElementById("fontString").innerHTML = "Fuente";
+					document.getElementById("sizeString").innerHTML = "Tamaño";
 				}
 				if(lang == "fr")
 				{
@@ -304,6 +316,8 @@
 					document.getElementById("langs")[1].innerHTML = "Français";
 					document.getElementById("langs")[2].innerHTML = "Anglais";
 					document.getElementById("langs")[3].innerHTML = "Espagnol";
+					document.getElementById("fontString").innerHTML = "Fonte";
+					document.getElementById("sizeString").innerHTML = "Taille";
 				}
 				if(lang == "en")
 				{
@@ -328,6 +342,8 @@
 					document.getElementById("langs")[1].innerHTML = "French";
 					document.getElementById("langs")[2].innerHTML = "English";
 					document.getElementById("langs")[3].innerHTML = "Spanish";
+					document.getElementById("fontString").innerHTML = "Font";
+					document.getElementById("sizeString").innerHTML = "Size";
 				}
 			}
 			
@@ -355,6 +371,27 @@
 				}
 				document.getElementById("langs").value = lang;
 			}
+
+			function fontSizeChanged()
+			{
+				fs = document.getElementById("fontSize").value;
+				saveFontSize();
+			}
+			
+			function saveFontSize()
+			{
+				localStorage["fs"] = fs;
+			}
+			
+			function loadFontSize()
+			{
+				if(localStorage.getItem("fs") != null)
+				{
+					fs = localStorage.getItem("fs");
+				}
+				else fs = 20;
+				document.getElementById("fontSize").value = fs;
+			}
 			
 			function start()
 			{
@@ -363,6 +400,7 @@
 				loadColors();
 				loadFirstDay();
 				loadDatePosition();
+				loadFontSize();
 			}
 			
 			function goBack()
