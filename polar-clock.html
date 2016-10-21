@@ -104,6 +104,18 @@
 					canvas.style.width = window.innerWidth;
 					canvas.style.height = window.innerWidth;
 			}
+			if(window.innerHeight < 350)
+			{
+				loadDatePosition();
+				if(dateUnderClock == true)
+				{
+					canvas.style.float = "left";
+					document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+				}
+				if(dateUnderClock == false) document.getElementById("date").style.display = "none";
+				canvas.style.width = window.innerHeight - 50;
+				canvas.style.height = window.innerHeight - 50;
+			}
 			var x = canvas.width / 2;
 			var y = canvas.height / 2;
 			var r = (150 * canvas.width) / 350;
