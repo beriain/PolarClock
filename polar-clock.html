@@ -159,7 +159,7 @@
 							break;
 						case 3:
 							w = (now.getDay() * 2 / 7) + 1.5;
-							//if(monday && now.getDay() == 0) w = 3.5;
+							if(monday == "true" && now.getDay() == 0) w = 3.5;
 							if(monday == "false") w = ((now.getDay() + 1) * 2 / 7) + 1.5;
 							c = colors[3];
 							break;
