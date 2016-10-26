@@ -104,6 +104,15 @@
 					<tr>
 						<td id="monthsString" class="option">Months</td><td><input type="color" id="monthsColor" onchange="colorChanged(5, this.value)"/></td>
 					</tr>
+					<tr>
+						<td id="backgroundString" class="option">Background</td><td><input type="color" id="bgColor" onchange="bgColorChanged(this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="fontColorString" class="option">Font</td><td><input type="color" id="fontColor" onchange="fontColorChanged(this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="fontBorderString" class="option">Font border</td><td><input type="color" id="fontBorderColor" onchange="fontBorderColorChanged(this.value)"/></td>
+					</tr>
 				</table>
 				<button id="resetColors" onclick="resetColors()">Reset colors</button>
 			</div>
@@ -139,6 +148,7 @@
 		</div>
 		<script>
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
+			var bgcolor, fontColor, fontBorderColor;
 			var monday;
 			var dateInClock, dateUnderClock;
 			var lang;
@@ -153,6 +163,9 @@
 			function saveColors()
 			{
 				localStorage["colors"] = JSON.stringify(colors);
+				localStorage["bgcolor"] = bgcolor;
+				localStorage["fontColor"] = fontColor;
+				localStorage["fontBorderColor"] = fontBorderColor;
 			}
 
 			function loadColors()
@@ -167,6 +180,15 @@
 				document.getElementById("weekDaysColor").value = colors[3];
 				document.getElementById("monthDaysColor").value = colors[4];
 				document.getElementById("monthsColor").value = colors[5];
+				if(localStorage.getItem("bgcolor") != null) bgcolor = localStorage.getItem("bgcolor");
+				else bgcolor = "#ffffff";
+				if(localStorage.getItem("fontColor") != null) fontColor = localStorage.getItem("fontColor");
+				else fontColor = "#ffffff";
+				if(localStorage.getItem("fontBorderColor") != null) fontBorderColor = localStorage.getItem("fontBorderColor");
+				else fontBorderColor = "#000000";
+				document.getElementById("bgColor").value = bgcolor;
+				document.getElementById("fontColor").value = fontColor;
+				document.getElementById("fontBorderColor").value = fontBorderColor;
 			}
 
 			function resetColors()
@@ -177,8 +199,29 @@
 				colors[3] = "#95a5a6";
 				colors[4] = "#e67e22";
 				colors[5] = "#e74c3c";
+				bgcolor = "#ffffff";
+				fontColor = "#ffffff";
+				fontBorderColor = "#000000";
 				saveColors();
 				loadColors();
+			}
+
+			function bgColorChanged(color)
+			{
+				bgcolor = color;
+				saveColors();
+			}
+			
+			function fontColorChanged(color)
+			{
+				fontColor = color;
+				saveColors();
+			}
+			
+			function fontBorderColorChanged(color)
+			{
+				fontBorderColor = color;
+				saveColors();
 			}
 
 			function firstDayChanged(m)
@@ -266,6 +309,9 @@
 					document.getElementById("langs")[3].innerHTML = "Gaztelera";
 					document.getElementById("fontString").innerHTML = "Letra";
 					document.getElementById("sizeString").innerHTML = "Neurria";
+					document.getElementById("backgroundString").innerHTML = "Atzeko planoa";
+					document.getElementById("fontColorString").innerHTML = "Letra";
+					document.getElementById("fontBorderString").innerHTML = "Letren ertza";
 				}
 				if(lang == "es")
 				{
@@ -292,6 +338,9 @@
 					document.getElementById("langs")[3].innerHTML = "Castellano";
 					document.getElementById("fontString").innerHTML = "Fuente";
 					document.getElementById("sizeString").innerHTML = "Tamaño";
+					document.getElementById("backgroundString").innerHTML = "Fondo";
+					document.getElementById("fontColorString").innerHTML = "Letra";
+					document.getElementById("fontBorderString").innerHTML = "Borde de la letra";
 				}
 				if(lang == "fr")
 				{
@@ -318,6 +367,9 @@
 					document.getElementById("langs")[3].innerHTML = "Espagnol";
 					document.getElementById("fontString").innerHTML = "Fonte";
 					document.getElementById("sizeString").innerHTML = "Taille";
+					document.getElementById("backgroundString").innerHTML = "Fond";
+					document.getElementById("fontColorString").innerHTML = "Fonte";
+					document.getElementById("fontBorderString").innerHTML = "Bord de la fonte";
 				}
 				if(lang == "en")
 				{
@@ -344,6 +396,9 @@
 					document.getElementById("langs")[3].innerHTML = "Spanish";
 					document.getElementById("fontString").innerHTML = "Font";
 					document.getElementById("sizeString").innerHTML = "Size";
+					document.getElementById("backgroundString").innerHTML = "Background";
+					document.getElementById("fontColorString").innerHTML = "Font";
+					document.getElementById("fontBorderString").innerHTML = "Font border";
 				}
 			}
 			

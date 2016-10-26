@@ -93,6 +93,7 @@
 						"June", "July", "August", "September", "October", "November", "December"];
 			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
+			var bgcolor, fontColor, fontBorderColor;			
 			var monday;
 			var dateInClock, dateUnderClock;
 			var lang;
@@ -227,8 +228,8 @@
 					context.save();
 					context.translate(0, -1 * radius);
 					s = str[n];
-					context.fillStyle = "white";
-					context.strokeStyle = "black";
+					context.fillStyle = fontColor;
+					context.strokeStyle = fontBorderColor;
 					context.lineWidth = 1;
 					/**context.font="bold 20px Arial";**/
 					context.font="bold " + fs + "px Arial";
@@ -290,6 +291,21 @@
 				{
 					colors = JSON.parse(localStorage["colors"]);
 				}
+				if(localStorage.getItem("bgcolor") != null)
+				{
+					bgcolor = localStorage.getItem("bgcolor");
+					document.body.style.background = bgcolor;
+				}
+				if(localStorage.getItem("fontColor") != null)
+				{
+					fontColor = localStorage.getItem("fontColor");
+				}
+				else fontColor = "#ffffff";
+				if(localStorage.getItem("fontBorderColor") != null)
+				{
+					fontBorderColor = localStorage.getItem("fontBorderColor");
+				}
+				else fontBorderColor = "#000000";
 			}
 			
 			
