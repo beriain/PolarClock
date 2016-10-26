@@ -401,11 +401,26 @@
 				loadFirstDay();
 				loadDatePosition();
 				loadFontSize();
+				checkAndroidVersion();
 			}
 			
 			function goBack()
 			{
 				window.location.href = "./polar-clock.html";
+			}
+
+			function checkAndroidVersion()
+			{
+				if((/Android\s+([\d\.]+)/).test(window.navigator.userAgent))
+				{
+					if(window.navigator.userAgent.match(/Android\s+([\d\.]+)/)[1].split(".").join("").substring(0, 2) < 44)
+					{
+						console.log(window.navigator.userAgent.match(/Android\s+([\d\.]+)/)[0]);
+						var colorinputs = document.querySelectorAll("input[type=color]");
+						for(var x = 0; x < colorinputs.length; x++)
+							colorinputs[x].style.width = "100px";
+					}
+				}
 			}
 		</script>
 	</body>
