@@ -74,9 +74,9 @@
 		<div id="titleBar">
 			<span id="title">Polar clock</span>
 			<button id="displayMenu" onclick="displayMenu(event)">&#8942;</button>
-			<div id="menu">
-				<a href="./settings.html"><div id="settings" class="menuElement" style="display: none">Settings</div></a>
-				<a href="./about.html"><div id="about" class="menuelement" style="display: none">About</div></a>
+			<div id="menu" style="display: none">
+				<a href="./settings.html"><div id="settings" class="menuElement">Settings</div></a>
+				<a href="./about.html"><div id="about" class="menuelement">About</div></a>
 			</div>
 		</div>
 		<canvas id="clock" width="350" height="350"></canvas>
@@ -283,16 +283,6 @@
 				}
 			}
 			
-			function colorChanged(pos, color)
-			{
-				colors[pos] = color;
-				saveColors();
-			}
-			
-			function saveColors()
-			{
-				localStorage["colors"] = JSON.stringify(colors);
-			}
 			
 			function loadColors()
 			{
@@ -302,17 +292,6 @@
 				}
 			}
 			
-			function firstDayChanged(m)
-			{
-				monday = m;
-				saveFirstDay();
-				hideSettings();
-			}
-			
-			function saveFirstDay()
-			{
-				localStorage["firstDayMonday"] = monday;
-			}
 			
 			function loadFirstDay()
 			{
@@ -326,19 +305,6 @@
 				}
 			}
 			
-			function datePositionChanged(dp)
-			{
-				dateInClock = document.getElementById("i").checked;
-				dateUnderClock = document.getElementById("u").checked;
-				saveDatePosition();
-				hideSettings();
-			}
-			
-			function saveDatePosition()
-			{
-				localStorage["dateInClock"] = dateInClock;
-				localStorage["dateUnderClock"] = dateUnderClock;
-			}
 			
 			function loadDatePosition()
 			{
@@ -376,25 +342,16 @@
 			
 			function displayMenu()
 			{
-				if(document.getElementById("about").style.display == "none")
-				{
-					document.getElementById("about").style.display = "block";
-					document.getElementById("settings").style.display = "block";
-				}
+				if(document.getElementById("menu").style.display == "none")
+					document.getElementById("menu").style.display = "block";
 				else
-				{
-					document.getElementById("about").style.display = "none";
-					document.getElementById("settings").style.display = "none";
-				}
+					document.getElementById("menu").style.display = "none";
 			}
 			
 			document.onclick = function(event)
 			{
 				if(event.target.id != "about" && event.target.id != "settings" && event.target.id != "displayMenu")
-				{
-					document.getElementById("about").style.display = "none";
-					document.getElementById("settings").style.display = "none";
-				}
+					document.getElementById("menu").style.display = "none";
 			};
 			
 			function loadLang()
