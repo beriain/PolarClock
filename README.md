@@ -6,7 +6,7 @@ A polar clock, inspired by the one made by pixelbreaker (http://blog.pixelbreake
       height="80">](https://f-droid.org/app/eu.polarclock)
       
 ##Translations
-If you want to contribute translating the app, you can do on [POEditor](https://poeditor.com/projects/view?id=78045)
+If you want to contribute translating the app, you can do on [POEditor](https://poeditor.com/join/project/lQpXOCYho7)
 
 ##Screenshots
 <img src="./screenshot.png" width="250"><br>
