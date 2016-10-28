@@ -38,15 +38,18 @@
 			{
 				margin-left:-7px;
 			}
-			button#displayMenu
+			div#displayMenu
 			{
-				border: none;
-				background: none;
-				color: white;
-				font-size: 100%;
-				float:right;
-				margin-top: -2px;
-				outline: none;
+				width: 44px;
+				height: 44px;
+				float: right;
+				margin-top: -10px;
+				margin-right: -10px;
+			}
+			svg#displayMenuSvg
+			{
+				margin-top: 12px;
+				margin-left: 12px;
 			}
 			div#menu
 			{
@@ -73,7 +76,13 @@
 	<body onload="start()">
 		<div id="titleBar">
 			<span id="title">Polar clock</span>
-			<button id="displayMenu" onclick="displayMenu(event)">&#8942;</button>
+			<div id="displayMenu">
+				<svg xmlns="http://www.w3.org/2000/svg" id="displayMenuSvg" width="20" height="20">
+					<circle cx="10" cy="2" r="2" fill="#ffffff"/>
+					<circle cx="10" cy="10" r="2" fill="#ffffff"/>
+					<circle cx="10" cy="18" r="2" fill="#ffffff"/>
+				</svg>
+			</div>
 			<div id="menu" style="display: none">
 				<a href="./settings.html"><div id="settings" class="menuElement">Settings</div></a>
 				<a href="./about.html"><div id="about" class="menuelement">About</div></a>
@@ -366,7 +375,9 @@
 			
 			document.onclick = function(event)
 			{
-				if(event.target.id != "about" && event.target.id != "settings" && event.target.id != "displayMenu")
+				if(event.target.id == "displayMenu" || event.target.id == "displayMenuSvg")
+					displayMenu();
+				else if(event.target.id != "about" && event.target.id != "settings")
 					document.getElementById("menu").style.display = "none";
 			};
 			
