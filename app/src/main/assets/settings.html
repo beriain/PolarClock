@@ -239,14 +239,14 @@
 			{
 				if(localStorage.getItem("firstDayMonday") != null)
 				{
-					monday = localStorage.getItem("firstDayMonday");
+					monday = (localStorage.getItem("firstDayMonday") === "true");
 				}
 				else
 				{
-					monday = "true";
+					monday = true;
 				}
-				if(monday == "true") document.getElementById("mondayCheck").checked = true;
-				if(monday == "false") document.getElementById("sundayCheck").checked = true;
+				if(monday == true) document.getElementById("mondayCheck").checked = true;
+				if(monday == false) document.getElementById("sundayCheck").checked = true;
 			}
 
 			function datePositionChanged()
@@ -266,12 +266,8 @@
 			{
 				if(localStorage.getItem("dateInClock") != null && localStorage.getItem("dateUnderClock") != null)
 				{
-					dateInClock = localStorage.getItem("dateInClock");
-					dateUnderClock = localStorage.getItem("dateUnderClock");
-					if(dateInClock == "true") dateInClock = true;
-					if(dateInClock == "false") dateInClock = false;
-					if(dateUnderClock == "true") dateUnderClock = true;
-					if(dateUnderClock == "false") dateUnderClock = false;
+					dateInClock = (localStorage.getItem("dateInClock") === "true");
+					dateUnderClock = (localStorage.getItem("dateUnderClock") === "true");
 				}
 				else
 				{
