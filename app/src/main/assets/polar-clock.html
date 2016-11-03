@@ -193,7 +193,7 @@
 
 					radius = radius - 25;/*15*/
 				}
-				if(dateInClock == true || dateInClock == "true")
+				if(dateInClock == true)
 				{
 					//drawTextAlongArc(context, monthNames[now.getMonth()], x, y, (r-106), 1);
 					drawTextAlongArc(context, monthNames[now.getMonth()], x, y, (r-130), (monthNames[now.getMonth()].length / 2.5));
@@ -204,7 +204,7 @@
 					drawTextAlongArc(context, now.getMinutes().toString(), x, y, (r-32), 0.2);
 					drawTextAlongArc(context, now.getSeconds().toString(), x, y, (r-8), 0.17);
 				}
-				if(dateUnderClock == true || dateUnderClock == "true")
+				if(dateUnderClock == true)
 				{
 					document.getElementById("month").style.color = colors[5];
 					document.getElementById("month").innerHTML = monthNames[now.getMonth()] + ",";
