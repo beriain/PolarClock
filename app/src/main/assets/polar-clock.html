@@ -56,15 +56,14 @@
 				background: white;
 				z-index: 10;
 				position: absolute;
-				right: 20px;
+				right: 12px;
 				border-radius: 2px;
-				font-size: 80%;
-				margin-top: -20px;
-				box-shadow: 5px 5px 5px grey;
+				margin-top: -37px;
+				box-shadow: 1px 3px 3px grey, -1px 3px 3px grey;
 			}
 			div.menuElement
 			{
-				padding: 5 60 5 10;
+				padding: 11 60 11 11;
 			}
 			a
 			{
@@ -83,10 +82,10 @@
 					<circle cx="10" cy="18" r="2" fill="#ffffff"/>
 				</svg>
 			</div>
-			<div id="menu" style="display: none">
-				<a href="./settings.html"><div id="settings" class="menuElement">Settings</div></a>
-				<a href="./about.html"><div id="about" class="menuelement">About</div></a>
-			</div>
+		</div>
+		<div id="menu" style="display: none">
+			<a href="./settings.html"><div id="settings" class="menuElement">Settings</div></a>
+			<a href="./about.html"><div id="about" class="menuElement">About</div></a>
 		</div>
 		<canvas id="clock" width="350" height="350"></canvas>
 		<div id="date">
@@ -102,7 +101,7 @@
 						"June", "July", "August", "September", "October", "November", "December"];
 			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
-			var bgcolor, fontColor, fontBorderColor;			
+			var bgcolor, fontColor, fontBorderColor, titleBarColor, titleColor, hideTitle;			
 			var monday;
 			var dateInClock, dateUnderClock;
 			var lang;
@@ -315,6 +314,20 @@
 					fontBorderColor = localStorage.getItem("fontBorderColor");
 				}
 				else fontBorderColor = "#000000";
+				if(localStorage.getItem("titleBarColor") != null) titleBarColor = localStorage.getItem("titleBarColor");
+				else titleBarColor = "#2ecc71";
+				if(localStorage.getItem("titleColor") != null) titleColor = localStorage.getItem("titleColor");
+				else titleColor = "#ffffff";
+				document.getElementById("titleBar").style.background = titleBarColor;
+				document.getElementById("titleBar").style.color = titleColor;
+				document.getElementById("displayMenuSvg").innerHTML =
+						"<circle cx='10' cy='2' r='2' fill='" + titleColor + "'/>" +
+						"<circle cx='10' cy='10' r='2' fill='" + titleColor + "'/>" +
+						"<circle cx='10' cy='18' r='2' fill='" + titleColor + "'/>";
+				console.log(titleColor);
+				if(localStorage.getItem("hideTitle") != null) hideTitle = (localStorage.getItem("hideTitle") === "true");
+				else hideTitle = false;
+				if(hideTitle) document.getElementById("titleBar").style.display = "none";
 			}
 			
 			
@@ -340,8 +353,8 @@
 				}
 				else
 				{
-					dateInClock = true;
-					dateUnderClock = false;
+					dateInClock = false;
+					dateUnderClock = true;
 				}
 			}
 			
@@ -371,10 +384,18 @@
 			
 			document.onclick = function(event)
 			{
-				if(event.target.id == "displayMenu" || event.target.id == "displayMenuSvg")
+				if(!hideTitle)
+				{
+					if(event.target.id == "displayMenu" || event.target.id == "displayMenuSvg")
+						displayMenu();
+					else if(event.target.id != "about" && event.target.id != "settings")
+						document.getElementById("menu").style.display = "none";
+				}
+				else
+				{
+					document.getElementById("menu").style.marginTop = "7px";
 					displayMenu();
-				else if(event.target.id != "about" && event.target.id != "settings")
-					document.getElementById("menu").style.display = "none";
+				}
 			};
 			
 			function loadLang()

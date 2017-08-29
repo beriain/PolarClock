@@ -113,6 +113,15 @@
 					<tr>
 						<td id="fontBorderString" class="option">Font border</td><td><input type="color" id="fontBorderColor" onchange="fontBorderColorChanged(this.value)"/></td>
 					</tr>
+					<tr>
+						<td id="titleBarString" class="option">Title bar</td><td><input type="color" id="titleBarColor" onchange="titleBarColorChanged(this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="titleString" class="option">Title</td><td><input type="color" id="titleColor" onchange="titleColorChanged(this.value)"/></td>
+					</tr>
+					<tr>
+						<td id="hideTitleString" class="option">Hide title in main screen</td><td><input type="checkbox" id="hideTitle" onchange="hideTitleChanged()"/></td>
+					</tr>
 				</table>
 				<button id="resetColors" onclick="resetColors()">Reset colors</button>
 			</div>
@@ -148,7 +157,7 @@
 		</div>
 		<script>
 			var colors = ["#2ecc71", "#3498db", "#9b59b6", "#95a5a6", "#e67e22", "#e74c3c"];
-			var bgcolor, fontColor, fontBorderColor;
+			var bgcolor, fontColor, fontBorderColor, titleBarColor, titleColor, hideTitle;
 			var monday;
 			var dateInClock, dateUnderClock;
 			var lang;
@@ -166,6 +175,8 @@
 				localStorage["bgcolor"] = bgcolor;
 				localStorage["fontColor"] = fontColor;
 				localStorage["fontBorderColor"] = fontBorderColor;
+				localStorage["titleBarColor"] = titleBarColor;
+				localStorage["titleColor"] = titleColor;
 			}
 
 			function loadColors()
@@ -186,9 +197,19 @@
 				else fontColor = "#ffffff";
 				if(localStorage.getItem("fontBorderColor") != null) fontBorderColor = localStorage.getItem("fontBorderColor");
 				else fontBorderColor = "#000000";
+				if(localStorage.getItem("titleBarColor") != null) titleBarColor = localStorage.getItem("titleBarColor");
+				else titleBarColor = "#2ecc71";
+				if(localStorage.getItem("titleColor") != null) titleColor = localStorage.getItem("titleColor");
+				else titleColor = "#ffffff";
 				document.getElementById("bgColor").value = bgcolor;
 				document.getElementById("fontColor").value = fontColor;
 				document.getElementById("fontBorderColor").value = fontBorderColor;
+				document.getElementById("titleBarColor").value = titleBarColor;
+				document.getElementById("titleColor").value = titleColor;
+				document.getElementById("titleBar").style.background = titleBarColor;
+				document.getElementById("titleBar").style.color = titleColor;
+				document.getElementById("back").innerHTML =
+					"<path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'  fill='" + titleColor + "'/>";
 			}
 
 			function resetColors()
@@ -202,6 +223,8 @@
 				bgcolor = "#ffffff";
 				fontColor = "#ffffff";
 				fontBorderColor = "#000000";
+				titleBarColor = "#2ecc71";
+				titleColor = "#ffffff";
 				saveColors();
 				loadColors();
 			}
@@ -222,6 +245,22 @@
 			{
 				fontBorderColor = color;
 				saveColors();
+			}
+			
+			function titleBarColorChanged(color)
+			{
+				titleBarColor = color;
+				saveColors();
+				document.getElementById("titleBar").style.background = titleBarColor;
+			}
+			
+			function titleColorChanged(color)
+			{
+				titleColor = color;
+				saveColors();
+				document.getElementById("titleBar").style.color = titleColor;
+				document.getElementById("back").innerHTML =
+					"<path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'  fill='" + titleColor + "'/>";
 			}
 
 			function firstDayChanged(m)
@@ -271,11 +310,26 @@
 				}
 				else
 				{
-					dateInClock = true;
-					dateUnderClock = false;
+					dateInClock = false;
+					dateUnderClock = true;
 				}
 				document.getElementById("i").checked = dateInClock;
 				document.getElementById("u").checked = dateUnderClock;
+			}
+
+			function hideTitleChanged()
+			{
+				hideTitle = document.getElementById("hideTitle").checked;
+				localStorage["hideTitle"] = hideTitle;
+			}
+
+			function loadHideTitle()
+			{
+				if(localStorage.getItem("hideTitle") != null)
+					hideTitle = (localStorage.getItem("hideTitle") === "true");
+				else
+					hideTitle = false;
+				document.getElementById("hideTitle").checked = hideTitle;
 			}
 		
 			function translate()
@@ -308,6 +362,9 @@
 					document.getElementById("backgroundString").innerHTML = "Atzeko planoa";
 					document.getElementById("fontColorString").innerHTML = "Letra";
 					document.getElementById("fontBorderString").innerHTML = "Letren ertza";
+					document.getElementById("titleBarString").innerHTML = "Izenburuaren barra";
+					document.getElementById("titleString").innerHTML = "Izenburua";
+					document.getElementById("hideTitleString").innerHTML = "Ezkutatu izenburuaren barra";
 				}
 				if(lang == "es")
 				{
@@ -337,6 +394,9 @@
 					document.getElementById("backgroundString").innerHTML = "Fondo";
 					document.getElementById("fontColorString").innerHTML = "Letra";
 					document.getElementById("fontBorderString").innerHTML = "Borde de la letra";
+					document.getElementById("titleBarString").innerHTML = "Barra de título";
+					document.getElementById("titleString").innerHTML = "Título";
+					document.getElementById("hideTitleString").innerHTML = "Ocultar barra de título";
 				}
 				if(lang == "fr")
 				{
@@ -366,6 +426,9 @@
 					document.getElementById("backgroundString").innerHTML = "Fond";
 					document.getElementById("fontColorString").innerHTML = "Fonte";
 					document.getElementById("fontBorderString").innerHTML = "Bord de la fonte";
+					document.getElementById("titleBarString").innerHTML = "Barre de titre";
+					document.getElementById("titleString").innerHTML = "Titre";
+					document.getElementById("hideTitleString").innerHTML = "Masquer la barre de titre";
 				}
 				if(lang == "en")
 				{
@@ -395,6 +458,9 @@
 					document.getElementById("backgroundString").innerHTML = "Background";
 					document.getElementById("fontColorString").innerHTML = "Font";
 					document.getElementById("fontBorderString").innerHTML = "Font border";
+					document.getElementById("titleBarString").innerHTML = "Title bar";
+					document.getElementById("titleString").innerHTML = "Title";
+					document.getElementById("hideTitleString").innerHTML = "Hide title in main screen";
 				}
 			}
 			
@@ -451,6 +517,7 @@
 				loadColors();
 				loadFirstDay();
 				loadDatePosition();
+				loadHideTitle();
 				loadFontSize();
 				checkAndroidVersion();
 			}
