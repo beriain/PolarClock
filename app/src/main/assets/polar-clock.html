@@ -14,21 +14,15 @@
 			{
 				background:#2ecc71;
 				text-align: left;
-				padding: 10px;
+				padding: 15px 10px 10px 10px;
 				color: white;
 				font-size: 125%;
 				z-index: 1;
+				height: 30px;
 			}
-			input
+			span#title
 			{
-				float: right;
-			}
-			input[type="color"]
-			{
-				border:none;
-				width:40px;
-				height:20px;
-				background:white;
+				padding-left: 10px;
 			}
 			div#date
 			{
@@ -63,7 +57,9 @@
 			}
 			div.menuElement
 			{
-				padding: 11 60 11 11;
+				padding: 12px 0 12px 12px;
+				width: 180px;
+				text-align: left;
 			}
 			a
 			{
@@ -108,22 +104,51 @@
 			
 			var canvas = document.getElementById("clock");
 			var context = canvas.getContext("2d");
+			loadDatePosition();
+			loadColors();
+			if(hideTitle)
+				canvas.style.paddingTop = (window.innerHeight / 2) - (canvas.height / 2);
 			if(window.innerWidth < 350)
 			{
 					canvas.style.width = window.innerWidth;
 					canvas.style.height = window.innerWidth;
+					if(hideTitle)
+					{
+						if(!dateUnderClock) canvas.style.paddingTop = "25%";
+						else canvas.style.paddingTop = "15%";
+					}
 			}
 			if(window.innerHeight < 350)
 			{
-				loadDatePosition();
-				if(dateUnderClock == true)
+				if(!hideTitle)
 				{
-					canvas.style.float = "left";
-					document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+					if(dateUnderClock == true)
+					{
+						canvas.style.float = "left";
+						document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+					}
+					if(dateUnderClock == false) document.getElementById("date").style.display = "none";
+					canvas.style.width = window.innerHeight - 55;
+					canvas.style.height = window.innerHeight - 55;
 				}
-				if(dateUnderClock == false) document.getElementById("date").style.display = "none";
-				canvas.style.width = window.innerHeight - 50;
-				canvas.style.height = window.innerHeight - 50;
+				else
+				{
+					if(dateUnderClock == true)
+					{
+						canvas.style.float = "left";
+						canvas.style.marginTop = "-20%";
+						canvas.style.paddingTop = "0";
+						document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+					}
+					else
+					{
+						document.getElementById("date").style.display = "none";
+						canvas.style.marginTop = "5%";
+						canvas.style.paddingTop = "0";
+					}
+					canvas.style.width = window.innerHeight - 50;
+					canvas.style.height = window.innerHeight - 50;
+				}
 			}
 			var x = canvas.width / 2;
 			var y = canvas.height / 2;
@@ -324,7 +349,6 @@
 						"<circle cx='10' cy='2' r='2' fill='" + titleColor + "'/>" +
 						"<circle cx='10' cy='10' r='2' fill='" + titleColor + "'/>" +
 						"<circle cx='10' cy='18' r='2' fill='" + titleColor + "'/>";
-				console.log(titleColor);
 				if(localStorage.getItem("hideTitle") != null) hideTitle = (localStorage.getItem("hideTitle") === "true");
 				else hideTitle = false;
 				if(hideTitle) document.getElementById("titleBar").style.display = "none";
@@ -390,6 +414,7 @@
 						displayMenu();
 					else if(event.target.id != "about" && event.target.id != "settings")
 						document.getElementById("menu").style.display = "none";
+						document.getElementById("menu").style.marginTop = "-50px";
 				}
 				else
 				{
