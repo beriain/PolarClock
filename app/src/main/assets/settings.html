@@ -84,6 +84,7 @@
 					<option value="fr">French</option>
 					<option value="en">English</option>
 					<option value="es">Spanish</option>
+					<option value="de">German</option>
 				</select> 
 			</div>
 			<div class="separator"></div>
@@ -363,6 +364,7 @@
 					document.getElementById("langs")[1].innerHTML = "Frantsesa";
 					document.getElementById("langs")[2].innerHTML = "Ingelesa";
 					document.getElementById("langs")[3].innerHTML = "Gaztelera";
+					document.getElementById("langs")[4].innerHTML = "Alemaniako";
 					document.getElementById("fontString").innerHTML = "Letra";
 					document.getElementById("sizeString").innerHTML = "Neurria";
 					document.getElementById("backgroundString").innerHTML = "Atzeko planoa";
@@ -395,6 +397,7 @@
 					document.getElementById("langs")[1].innerHTML = "Frances";
 					document.getElementById("langs")[2].innerHTML = "Ingles";
 					document.getElementById("langs")[3].innerHTML = "Castellano";
+					document.getElementById("langs")[4].innerHTML = "Alemán";
 					document.getElementById("fontString").innerHTML = "Fuente";
 					document.getElementById("sizeString").innerHTML = "Tamaño";
 					document.getElementById("backgroundString").innerHTML = "Fondo";
@@ -427,6 +430,7 @@
 					document.getElementById("langs")[1].innerHTML = "Français";
 					document.getElementById("langs")[2].innerHTML = "Anglais";
 					document.getElementById("langs")[3].innerHTML = "Espagnol";
+					document.getElementById("langs")[4].innerHTML = "Allemand";
 					document.getElementById("fontString").innerHTML = "Fonte";
 					document.getElementById("sizeString").innerHTML = "Taille";
 					document.getElementById("backgroundString").innerHTML = "Fond";
@@ -459,6 +463,7 @@
 					document.getElementById("langs")[1].innerHTML = "French";
 					document.getElementById("langs")[2].innerHTML = "English";
 					document.getElementById("langs")[3].innerHTML = "Spanish";
+					document.getElementById("langs")[4].innerHTML = "German";
 					document.getElementById("fontString").innerHTML = "Font";
 					document.getElementById("sizeString").innerHTML = "Size";
 					document.getElementById("backgroundString").innerHTML = "Background";
@@ -468,8 +473,41 @@
 					document.getElementById("titleString").innerHTML = "Title";
 					document.getElementById("hideTitleString").innerHTML = "Hide title in main screen";
 				}
+				if(lang == "de")
+				{
+					document.title = "Einstellungen";
+					document.getElementById("title").innerHTML = "Einstellungen";
+					document.getElementById("colorsString").innerHTML = "Farben";
+					document.getElementById("secondsString").innerHTML = "Sekunden";
+					document.getElementById("minutesString").innerHTML = "Minuten";
+					document.getElementById("hoursString").innerHTML = "Stunden";
+					document.getElementById("weekDaysString").innerHTML = "Wochentage";
+					document.getElementById("monthDaysString").innerHTML = "Tage";
+					document.getElementById("monthsString").innerHTML = "Monate";
+					document.getElementById("firstDayString").innerHTML = "Erster Wochentag";
+					document.getElementById("sundayString").innerHTML = "Sonntag";
+					document.getElementById("mondayString").innerHTML = "Montag";
+					document.getElementById("datePositionString").innerHTML = "Position des Datums";
+					document.getElementById("inTheClockString").innerHTML = "Innerhalb der Uhr";
+					document.getElementById("underTheClockString").innerHTML = "Unter der Uhr";
+					document.getElementById("resetColors").innerHTML = "Farben zurücksetzen";
+					document.getElementById("langString").innerHTML = "Sprache";
+					document.getElementById("langs")[0].innerHTML = "Baskisch";
+					document.getElementById("langs")[1].innerHTML = "Französisch";
+					document.getElementById("langs")[2].innerHTML = "Englisch";
+					document.getElementById("langs")[3].innerHTML = "Spanisch";
+					document.getElementById("langs")[4].innerHTML = "Deutsch";
+					document.getElementById("fontString").innerHTML = "Schriftart";
+					document.getElementById("sizeString").innerHTML = "Größe";
+					document.getElementById("backgroundString").innerHTML = "Hintergrund";
+					document.getElementById("fontColorString").innerHTML = "Schrift";
+					document.getElementById("fontBorderString").innerHTML = "Schriftrand";
+					document.getElementById("titleBarString").innerHTML = "Titelzeile";
+					document.getElementById("titleString").innerHTML = "Titel";
+					document.getElementById("hideTitleString").innerHTML = "Titelzeile auf der Hauptseite ausblenden";
+				}
 			}
-			
+
 			function langChanged()
 			{
 				lang = document.getElementById("langs").value;
