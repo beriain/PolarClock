@@ -106,30 +106,41 @@
 			var context = canvas.getContext("2d");
 			loadDatePosition();
 			loadColors();
-			if(hideTitle)
-				canvas.style.paddingTop = (window.innerHeight / 2) - (canvas.height / 2);
-			if(window.innerWidth < 350)
+			var w, h;
+			if(window.innerWidth != 0)
 			{
-					canvas.style.width = window.innerWidth;
-					canvas.style.height = window.innerWidth;
+				localStorage.setItem("windowWidth", window.innerWidth);
+				w = window.innerWidth;
+				localStorage.setItem("windowHeight", window.innerHeight);
+				h = window.innerHeight;
+			}
+			else
+			{
+				w = localStorage.getItem("windowWidth");
+				h = localStorage.getItem("windowHeight"); 
+			}
+			if(w < 350)
+			{
+					canvas.style.width = w;
+					canvas.style.height = w;
 					if(hideTitle)
 					{
 						if(!dateUnderClock) canvas.style.paddingTop = "25%";
 						else canvas.style.paddingTop = "15%";
 					}
 			}
-			if(window.innerHeight < 350)
+			if(h < 350)
 			{
 				if(!hideTitle)
 				{
 					if(dateUnderClock == true)
 					{
 						canvas.style.float = "left";
-						document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+						document.getElementById("date").style.marginTop = (h / 2) - 44;
 					}
 					if(dateUnderClock == false) document.getElementById("date").style.display = "none";
-					canvas.style.width = window.innerHeight - 55;
-					canvas.style.height = window.innerHeight - 55;
+					canvas.style.width = h - 55;
+					canvas.style.height = h - 55;
 				}
 				else
 				{
@@ -138,7 +149,7 @@
 						canvas.style.float = "left";
 						canvas.style.marginTop = "-20%";
 						canvas.style.paddingTop = "0";
-						document.getElementById("date").style.marginTop = (window.innerHeight / 2) - 44;
+						document.getElementById("date").style.marginTop = (h / 2) - 44;
 					}
 					else
 					{
@@ -146,8 +157,52 @@
 						canvas.style.marginTop = "5%";
 						canvas.style.paddingTop = "0";
 					}
-					canvas.style.width = window.innerHeight - 50;
-					canvas.style.height = window.innerHeight - 50;
+					canvas.style.width = h - 50;
+					canvas.style.height = h - 50;
+				}
+			}
+			if(hideTitle)
+				canvas.style.paddingTop = (h / 2) - (canvas.height / 2);
+			if(h < 350)
+			{
+					canvas.style.width = w;
+					canvas.style.height = h;
+					if(hideTitle)
+					{
+						if(!dateUnderClock) canvas.style.paddingTop = "25%";
+						else canvas.style.paddingTop = "15%";
+					}
+			}
+			if(h < 350)
+			{
+				if(!hideTitle)
+				{
+					if(dateUnderClock == true)
+					{
+						canvas.style.float = "left";
+						document.getElementById("date").style.marginTop = (h / 2) - 44;
+					}
+					if(dateUnderClock == false) document.getElementById("date").style.display = "none";
+					canvas.style.width = h - 55;
+					canvas.style.height = h - 55;
+				}
+				else
+				{
+					if(dateUnderClock == true)
+					{
+						canvas.style.float = "left";
+						canvas.style.marginTop = "-20%";
+						canvas.style.paddingTop = "0";
+						document.getElementById("date").style.marginTop = (h / 2) - 44;
+					}
+					else
+					{
+						document.getElementById("date").style.display = "none";
+						canvas.style.marginTop = "5%";
+						canvas.style.paddingTop = "0";
+					}
+					canvas.style.width = h - 50;
+					canvas.style.height = h - 50;
 				}
 			}
 			var x = canvas.width / 2;
