@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.view.Window;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
@@ -15,11 +16,19 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         WebView wv = (WebView) findViewById(R.id.webView);
+        wv.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return false;
+            }
+        });
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(false);
         webSettings.setDomStorageEnabled(true);
-        //webSettings.setUseWideViewPort(true);
+        
         wv.loadUrl("file:///android_asset/polar-clock.html");
     }
 
