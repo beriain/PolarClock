@@ -7,9 +7,6 @@ A polar clock, inspired by the one made by pixelbreaker (http://blog.pixelbreake
  
 If you want to get only the HTML files, you can find them in the [assets](/app/src/main/assets) folder
 
-## Translations
-If you want to contribute translating the app, you can do on [POEditor](https://poeditor.com/join/project/lQpXOCYho7)
-
 ## Screenshots
 <img src="./screenshot.png" width="250"><br>
 <img src="./screenshot-landscape.png" height="250">
