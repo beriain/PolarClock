@@ -8,6 +8,7 @@ import android.view.Window;
 import android.webkit.WebViewClient;
 import android.content.Intent;
 import android.net.Uri;
+import android.content.res.Configuration;
 
 public class MainActivity extends Activity {
 
@@ -47,5 +48,13 @@ public class MainActivity extends Activity {
         if(wv.getUrl().compareToIgnoreCase("file:///android_asset/polar-clock.html") != 0)
             wv.loadUrl("javascript:goBack()");
         else finish();
-	}
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        WebView wv = (WebView) findViewById(R.id.webView);
+        if(wv.getUrl().compareToIgnoreCase("file:///android_asset/polar-clock.html") == 0)
+            this.recreate();
+    }
 }
