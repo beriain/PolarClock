@@ -6,6 +6,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.view.Window;
 import android.webkit.WebViewClient;
+import android.content.Intent;
+import android.net.Uri;
 
 public class MainActivity extends Activity {
 
@@ -20,8 +22,14 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return false;
+                if (url.startsWith("file"))
+                    return false;
+                else {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                    return true;
+                }
             }
         });
         WebSettings webSettings = wv.getSettings();
