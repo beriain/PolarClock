@@ -1,5 +1,5 @@
 # PolarClock
-A polar clock, inspired by the one made by pixelbreaker (http://blog.pixelbreaker.com/polarclock)
+A highly customizable polar clock written in HTML5
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
