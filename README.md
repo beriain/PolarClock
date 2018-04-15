@@ -8,5 +8,5 @@ A polar clock, inspired by the one made by pixelbreaker (http://blog.pixelbreake
 If you want to get only the HTML files, you can find them in the [assets](/app/src/main/assets) folder
 
 ## Screenshots
-<img src="./screenshot.png" width="250"><br>
-<img src="./screenshot-landscape.png" height="250">
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot.png" width="250"><br>
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/screenshot-landscape.png" height="250">
