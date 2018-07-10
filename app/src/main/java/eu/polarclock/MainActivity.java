@@ -9,6 +9,9 @@ import android.webkit.WebViewClient;
 import android.content.Intent;
 import android.net.Uri;
 import android.content.res.Configuration;
+import android.os.Build;
+import android.app.ActivityManager.TaskDescription;
+import android.graphics.BitmapFactory;
 
 public class MainActivity extends Activity {
 
@@ -56,5 +59,16 @@ public class MainActivity extends Activity {
         WebView wv = (WebView) findViewById(R.id.webView);
         if(wv.getUrl().compareToIgnoreCase("file:///android_asset/polar-clock.html") == 0)
             this.recreate();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TaskDescription taskDescription = new TaskDescription(getString(R.string.app_name),
+                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+                getColor(R.color.colorPrimary));
+                this.setTaskDescription(taskDescription);
+        }
     }
 }
