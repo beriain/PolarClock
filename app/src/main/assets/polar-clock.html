@@ -85,9 +85,7 @@
 		</div>
 		<canvas id="clock" width="350" height="350"></canvas>
 		<div id="date">
-			<span id="month"></span>
-			<span id="dayNumber"></span>
-			<span id="dayName"></span><br>
+			<br id="sep" />
 			<span id="hours"></span>
 			<span id="minutes" class="time"></span>
 			<span id="seconds" class="time"></span>
@@ -288,9 +286,9 @@
 					document.getElementById("month").style.color = colors[5];
 					document.getElementById("month").innerHTML = monthNames[now.getMonth()] + ",";
 					document.getElementById("dayNumber").style.color = colors[4];
-					document.getElementById("dayNumber").innerHTML = now.getDate() + ",";
+					document.getElementById("dayNumber").innerHTML = now.getDate() + ((lang == "fr") ? "&nbsp;" : ",");
 					document.getElementById("dayName").style.color = colors[3];
-					document.getElementById("dayName").innerHTML = dayNames[now.getDay()];
+					document.getElementById("dayName").innerHTML = dayNames[now.getDay()] + ((lang == "fr") ? "&nbsp;" : ",");
 					document.getElementById("hours").style.color = colors[2];
 					document.getElementById("hours").innerHTML = checkTime(now.getHours()) + ":";
 					document.getElementById("minutes").style.color = colors[1];
@@ -510,9 +508,36 @@
 				document.getElementById("date").style.fontSize = fs;
 			}
 
+			function createTextDate()
+			{
+				var sep = document.getElementById("sep");
+				var date = document.getElementById("date");
+
+				var spanMonth = document.createElement("span");
+				spanMonth.setAttribute("id", "month");
+				var spanDayNumber = document.createElement("span");
+				spanDayNumber.setAttribute("id", "dayNumber");
+				var spanDayName = document.createElement("span");
+				spanDayName.setAttribute("id", "dayName");
+
+				if (lang == "fr")
+				{
+					date.insertBefore(spanMonth, sep);
+					date.insertBefore(spanDayNumber, spanMonth);
+					date.insertBefore(spanDayName, spanDayNumber);
+				}
+				else
+				{
+					date.insertBefore(spanDayName, sep);
+					date.insertBefore(spanDayNumber, spanDayName);
+					date.insertBefore(spanMonth, spanDayNumber);
+				}
+			}
+
 			function start()
 			{
 				loadLang();
+				createTextDate();
 				translate();
 				loadColors();
 				loadFirstDay();
